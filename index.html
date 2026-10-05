@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PINTAR - Peta Interaktif Area & Tenant PT INTI</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><div class="logo">PT</div><div><b>PINTAR - Peta Interaktif Area & Tenant PT INTI</b><small>Dikelola oleh bagian Umum & K3LH</small></div></div>
+  <div class="top-actions"><span class="live"><i></i> Data demo • Offline SVG</span><button id="resetBtn" class="btn ghost">Reset</button><button id="howBtn" class="btn light">How it works</button></div>
+</header>
+<div class="layout">
+<aside class="sidebar">
+  <div class="searchbox"><span>⌕</span><input id="searchInput" placeholder="Cari unit / tenant..."><button id="clearSearch">×</button></div>
+  <div class="section"><div class="section-title">FILTER UNIT</div>
+    <label>Gedung</label><select id="buildingFilter"><option value="all">Gedung A</option></select>
+    <label>Status unit</label><div class="check-list">
+      <label><input class="unitFilter" type="checkbox" value="occupied" checked><span class="dot green"></span> Terisi</label>
+      <label><input class="unitFilter" type="checkbox" value="vacant" checked><span class="dot blue"></span> Kosong</label>
+    </div>
+    <label>Status pembayaran</label><select id="paymentFilter"><option value="all">Semua</option><option value="paid">Lunas</option><option value="unpaid">Belum bayar</option><option value="overdue">Overdue</option></select>
+    <label>Status kontrak</label><select id="leaseFilter"><option value="all">Semua</option><option value="active">Aktif</option><option value="expiring">Akan berakhir ≤ 90 hari</option><option value="expired">Berakhir</option></select>
+  </div>
+  <div class="section"><div class="section-title">DAFTAR UNIT</div><div id="unitList" class="unit-list"></div></div>
+  <div class="legend"><div class="section-title">LEGENDA PETA</div><div><span class="legend-box green"></span> Terisi & pembayaran lancar</div><div><span class="legend-box yellow"></span> Kontrak segera berakhir</div><div><span class="legend-box red"></span> Tunggakan pembayaran</div><div><span class="legend-box blue"></span> Unit kosong</div></div>
+</aside>
+<main class="main">
+  <section class="dashboard"><div class="dash-title"><div class="eyebrow">WEBGIS / TENANT MANAGEMENT</div><h1>Gedung A — Lantai 1</h1><p>Denah SVG interaktif • klik unit untuk melihat tenant, kontrak, dan pembayaran.</p></div>
+    <div class="cards"><div class="card"><span>Total Unit</span><b id="totalUnits">0</b><small>unit terdaftar</small></div><div class="card"><span>Terisi</span><b id="occupied">0</b><small id="occupancyPct">0% occupancy</small></div><div class="card"><span>Kontrak Segera Habis</span><b id="expiring">0</b><small>≤ 90 hari</small></div><div class="card danger-card"><span>Tunggakan</span><b id="overdue">0</b><small>perlu ditindaklanjuti</small></div></div>
+  </section>
+  <section class="map-shell"><div class="map-toolbar"><div><b>Denah Interaktif</b><span id="resultText">Memuat unit...</span></div><div class="toolbar-actions"><button class="small-btn" id="zoomOut">−</button><button class="small-btn zoom-value" id="zoomValue">100%</button><button class="small-btn" id="zoomIn">+</button><button class="small-btn" id="zoomFit">Fit</button><button class="small-btn" id="toggleLabels">Label</button></div></div>
+    <div id="mapViewport"><div id="floorMap"></div><div class="north">N</div><div class="scale">10 m</div></div><div class="map-note">Klik polygon/unit untuk melihat data tenant • scroll untuk zoom</div>
+  </section>
+  <section class="bottom-panel"><div><div class="eyebrow">RINGKASAN</div><h2>Perlu perhatian</h2></div><div class="attention" id="attention"></div></section>
+</main></div>
+<div id="detailPanel" class="detail-panel"><button class="close" id="closeDetail">×</button><div class="eyebrow" id="detailCode">UNIT</div><h2 id="detailUnit">A-01</h2><div class="status-pill" id="detailStatus">AKTIF</div><div class="tenant-head"><div class="avatar" id="avatar">PT</div><div><b id="detailTenant">Tenant</b><small id="detailCompany">Perusahaan</small></div></div>
+  <div class="info-grid"><div><span>Luas</span><b id="detailArea">-</b></div><div><span>Fungsi</span><b id="detailType">-</b></div><div><span>Mulai sewa</span><b id="detailStart">-</b></div><div><span>Berakhir</span><b id="detailEnd">-</b></div><div><span>Sisa kontrak</span><b id="detailRemaining">-</b></div><div><span>Sewa / bulan</span><b id="detailRent">-</b></div></div>
+  <div class="payment-box"><div><span>Pembayaran bulan berjalan</span><b id="detailPayment">-</b></div><div class="payment-row"><span>Jatuh tempo</span><span id="detailDue">-</span></div><div class="payment-row"><span>Terakhir bayar</span><span id="detailPaidDate">-</span></div></div>
+  <div class="pic-box"><span>PIC Tenant</span><b id="detailPic">-</b><small id="detailContact">-</small></div>
+  <button class="primary-action" id="historyBtn">Lihat Riwayat Pembayaran</button><button class="secondary-action" id="editBtn">Edit Data Tenant</button>
+</div>
+<div id="modalBg" class="modal-bg"><div class="modal"><button class="close" id="closeModal">×</button><div class="eyebrow">CAMPUSMAP</div><h2 id="modalTitle">Riwayat Pembayaran</h2><div id="modalBody"></div></div></div>
+<script src="app.js"></script>
+</body></html>
